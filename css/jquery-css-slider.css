@@ -1,0 +1,61 @@
+/*----------------------------------------------------------
+    Name:      
+    Code:      
+    Design:    
+----------------------------------------------------------*/
+body {
+    color:#000;
+    font:13px/1.5em 'Helvetica Neue', 'Helvetica', sans-serif;
+    background:#E9EDF1;
+}
+
+ol, ul {
+    margin:0;
+    padding:0;
+}
+
+/* Slider */
+#slider {
+    position:absolute;
+    top:50%; left:50%;
+    margin:-270px 0 0 -480px;
+    width:960px;
+    height:540px;
+    border:10px solid #222;
+    list-style:none;
+    overflow:hidden;
+}
+
+    /* Navigation */
+    .css-next, .css-prev {
+        position:absolute;
+        top:50%; left:50%;
+        margin:-10px 0 0 -540px;
+        width:50px;
+        height:20px;
+        line-height:20px;
+    }
+    .css-next { margin:-10px 0 0 515px; }
+
+    /* Slides */
+    #slider .slide {
+        position:absolute;
+        top:0; right:0;
+        bottom:0; left:100%;
+        width:960px;
+        height:540px;
+        text-align:center;
+        line-height:540px;
+        -webkit-transition:left 0.5s ease;
+           -moz-transition:left 0.5s ease;
+             -o-transition:left 0.5s ease;
+                transition:left 0.5s ease;
+    }
+    #slider .css-old { left:-100%; }
+    #slider .css-active { left:0; }
+
+        /* Slide Backgrounds */
+        .red  { background:red; }
+        .blue { background:blue; }
+        .ba   { background:#BADA55; }
+        .pink { background:pink; }
