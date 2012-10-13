@@ -1,5 +1,6 @@
 /**
  * CSS Slider. Simple tool for providing css hooks
+ * @version 1.1
  *
  * @dependency jQuery 1.8.2
  * @dependency jQuery UI 1.9.0
@@ -16,6 +17,7 @@
             auto:          true,
             loop:          true,
             interval:      3000,
+            hoverPause:    true,
             initialSlide:  0,
             sliderClass:   'css-slider',
             slideClass:    'css-slide',
@@ -64,7 +66,9 @@
 
         _init:    function() {
             this.to( this.current );
-            this.options.auto && this.start();
+
+            // Bind events for timer
+            this.options.auto && this.start( this.options.hoverPause );
         },
 
         to:       function( i ) {
@@ -129,20 +133,33 @@
             this.to( this.current - 1 );
         },
 
-        start: function( go ) {
-
-            if( typeof go == 'undefined' ) {
-                go = true;
-            }
-
+        start: function( hoverPause ) {
             var self = this;
 
-            if( go ) {
-                this.timer = setInterval(function() {
-                    self.next();
-                }, this.options.interval );
-            }
+            // Start Timer Initially
+            self.startTimer();
 
+            // Bind hover events to start/stop timer
+            hoverPause && self.slider.hover(
+                function(){
+                    self.stopTimer();
+                },
+                function(){
+                    self.startTimer();
+                }
+            );
+
+        },
+
+        startTimer: function() {
+            var self = this;
+            this.timer = setInterval(function() {
+                self.next();
+            }, this.options.interval );
+        },
+
+        stopTimer:  function() {
+            clearInterval( this.timer );
         },
 
         destroy: function() {
