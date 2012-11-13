@@ -32,7 +32,11 @@
 					oldClass:      'css-old',       // Class that all "seen" slides get
 					nextClass:     'css-next',      // Next Button
 					prevClass:     'css-prev',      // Prev Button
-					disabledClass: 'css-disabled'   // Class to give disabled button
+					disabledClass: 'css-disabled',  // Class to give disabled button
+					onTransition:  function( to_slide ) {
+						// 0, 1, 2 ...
+						// console.log( to_slide );
+					}
 				});
 			});
 		</script>

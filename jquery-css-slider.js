@@ -1,6 +1,6 @@
 /**
  * CSS Slider. Simple tool for providing css hooks
- * @version 1.1
+ * @version 1.2
  *
  * @dependency jQuery 1.8.2
  * @dependency jQuery UI 1.9.0
@@ -25,7 +25,8 @@
             prevClass:     'css-prev',
             activeClass:   'css-active',
             oldClass:      'css-old',
-            disabledClass: 'css-disabled'
+            disabledClass: 'css-disabled',
+            onTransition:  function() {}
         },
 
         _create:  function() {
@@ -72,6 +73,10 @@
         },
 
         to:       function( i ) {
+
+            // Call the transition callback
+            // pass in the to slide for extra fun
+            this.options.onTransition(i);
 
             // Loopable
             if ( this.options.loop ) {
