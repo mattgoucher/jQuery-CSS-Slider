@@ -42,7 +42,7 @@ See **[included css file](https://raw.github.com/mattgoucher/jQuery-CSS-Slider/m
 ### Options
 
 #### Basic Options
-<table>
+<table style="width:100%;">
 	<tr>
 		<th class="name">Name</th>
 		<th class="type">Type</th>
@@ -95,7 +95,7 @@ See **[included css file](https://raw.github.com/mattgoucher/jQuery-CSS-Slider/m
 
 #### Element Class Options
 These options are useful if you have multiple slider instances
-<table>
+<table style="width:100%;">
 	<tr>
 		<th class="name">Name</th>
 		<th class="type">Type</th>
@@ -153,7 +153,7 @@ These options are useful if you have multiple slider instances
 </table>
 
 #### Events
-<table>
+<table style="width:100%;">
 	<tr>
 		<th class="name">Name</th>
 		<th class="desc">Description</th>
