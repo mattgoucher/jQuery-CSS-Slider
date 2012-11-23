@@ -30,30 +30,7 @@ A jQuery plugin that gives you hooks to build a slider using CSS transitions and
 ```html
 <script type="text/javascript">
 	$(function(){
-		$('#slider').slider({
-			auto:                 true,                         // Slider moves automaticly
-			loop:                 true,                         // when user gets to end, go back to slide one
-			interval:             2000,                         // Time ( in milliseconds ) between transitions (if auto is true)
-			hoverPause:           true,                         // Pause the slider when hovered 
-			initialSlide:         0,                            // Which slide to start on ( zero based )
-			navigation:           true,                         // Create slider navigation?
-			nextAndPrev:          true,                         // Create next and previous buttons?
-			sliderClass:          'css-slider',                 // Class that slider gets
-			slideClass:           'css-slide',                  // Class that all Slides get
-			activeClass:          'css-active',                 // Class that Active slide gets
-			oldClass:             'css-old',                    // Class that all "seen" slides get
-			nextClass:            'css-next',                   // Next Button
-			prevClass:            'css-prev',                   // Prev Button
-			disabledClass:        'css-disabled',               // Class to give disabled button
-			navigationClass:      'css-slider-navigation',      // Class to give navigation
-			navigationItemClass:  'css-slider-navigation-item', // Each navigation item
-
-			// Function called after each slide transition
-			onTransition:  function( to_slide ) {
-				// 0, 1, 2 ...
-				// console.log( to_slide );
-			}
-		});
+		$('#slider').slider();
 	});
 </script>
 ```
@@ -172,5 +149,17 @@ These options are useful if you have multiple slider instances
 		<td>string</td>
 		<td>css-slider-navigation</td>
 		<td class="desc">Class to give each slider navigation item</td>
+	</tr>
+</table>
+
+#### Events
+<table>
+	<tr>
+		<th class="name">Name</th>
+		<th class="desc">Description</th>
+	</tr>
+	<tr>
+		<td>onTransition</td>
+		<td class="desc">Called after each slide transitioin</td>
 	</tr>
 </table>
