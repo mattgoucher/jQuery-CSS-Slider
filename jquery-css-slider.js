@@ -19,7 +19,7 @@
             interval:             3000,
             hoverPause:           true,
             initialSlide:         0,
-            navigation:           true,
+            navigation:           false,
             nextAndPrev:          true,
             sliderClass:          'css-slider',
             slideClass:           'css-slide',
