@@ -1,6 +1,6 @@
 /**
  * CSS Slider. Simple tool for providing css hooks
- * @version 1.2
+ * @version 1.3
  *
  * @dependency jQuery 1.8.2
  * @dependency jQuery UI 1.9.0
@@ -14,65 +14,115 @@
     $.widget('css.slider', {
 
         options: {
-            auto:          true,
-            loop:          true,
-            interval:      3000,
-            hoverPause:    true,
-            initialSlide:  0,
-            sliderClass:   'css-slider',
-            slideClass:    'css-slide',
-            nextClass:     'css-next',
-            prevClass:     'css-prev',
-            activeClass:   'css-active',
-            oldClass:      'css-old',
-            disabledClass: 'css-disabled',
-            onTransition:  function() {}
+            auto:                 true,
+            loop:                 true,
+            interval:             3000,
+            hoverPause:           true,
+            initialSlide:         0,
+            navigation:           true,
+            nextAndPrev:          true,
+            sliderClass:          'css-slider',
+            slideClass:           'css-slide',
+            nextClass:            'css-next',
+            prevClass:            'css-prev',
+            activeClass:          'css-active',
+            oldClass:             'css-old',
+            disabledClass:        'css-disabled',
+            navigationClass:      'css-slider-navigation',
+            navigationItemClass:  'css-slider-navigation-item'
         },
 
-        _create:  function() {
+        _create: function() {
             var self = this;
 
             // Set Current Slide
-            this.current = this.options.initialSlide;
+            self.current = self.options.initialSlide;
 
             // Slider
-            this.slider = this.element.addClass( this.options.sliderClass );
+            self.slider = self.element.addClass( self.options.sliderClass );
 
             // Slides
-            this.slides = this.element.children().addClass( this.options.slideClass );
+            self.slides = self.element.children().addClass( self.options.slideClass );
 
-            // Next Button Setup
-            this.nextButton = $('<a>', {
-                'class': this.options.nextClass,
-                'text':  'Next'
-            }).click(function(e){
-                e.preventDefault();
+            // Build out the next and previous buttons.
+            if ( self.options.nextAndPrev ) {
 
-                // Go To Next Slide
-                self.to( self.current + 1 );
-            }).insertAfter( this.slider );
+                // Next Button Setup
+                self.nextButton = $('<a>', {
+                    'class': self.options.nextClass,
+                    'text':  'Next'
+                }).hover(
+                    function(){
+                        self.stopTimer();
+                    },
+                    function(){
+                        self.startTimer();
+                    }
+                ).click(function(e){
+                    e.preventDefault();
 
-            // Previous Button Setup
-            this.previousButton = $('<a>', {
-                'class': this.options.prevClass,
-                'text':  'Previous'
-            }).click(function(e){
-                e.preventDefault();
+                    // Go To Next Slide
+                    self.to( self.current + 1 );
+                }).insertAfter( self.slider );
 
-                // Go To Next Slide
-                self.to( self.current - 1 );
-            }).insertAfter( this.slider );
+                // Previous Button Setup
+                self.previousButton = $('<a>', {
+                    'class': self.options.prevClass,
+                    'text':  'Previous'
+                }).hover(
+                    function(){
+                        self.stopTimer();
+                    },
+                    function(){
+                        self.startTimer();
+                    }
+                ).click(function(e){
+                    e.preventDefault();
+
+                    // Go To Next Slide
+                    self.to( self.current - 1 );
+                }).insertAfter( self.slider );
+
+            }
+
+            // Build out slider navigation
+            if ( self.options.navigation ) {
+                self.navigation = $('<ul>', {
+                    'class': self.options.navigationClass
+                }).hover(
+                    function(){
+                        self.stopTimer();
+                    },
+                    function(){
+                        self.startTimer();
+                    }
+                );
+                self.slides.each(function(i){
+                    self.navigation.append(
+                        $('<li>', {
+                            'class': self.options.navigationItemClass,
+                            'text':  'slide-' + (i+1)
+                        }).click(function(){
+                            self.to(i);
+                        })
+                    );
+                });
+                self.navigation.insertAfter( self.slider );
+            }
+
 
         },
 
-        _init:    function() {
+        _init: function() {
             this.to( this.current );
 
             // Bind events for timer
             this.options.auto && this.start( this.options.hoverPause );
         },
 
-        to:       function( i ) {
+        to: function( i ) {
+
+            var self = this;
 
             // Call the transition callback
             // pass in the to slide for extra fun
@@ -125,12 +175,15 @@
                 .slice(0, i)
                     .addClass( this.options.oldClass );
 
+            // Activate the selected slide navigation
+            self.navigation && $(self.navigation.children()[i]).addClass('active').siblings().removeClass('active');
+
             this.current = i;
 
             this._trigger('to');
         },
 
-        next:     function() {
+        next: function() {
             this.to( this.current + 1 );
         },
 
