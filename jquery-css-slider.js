@@ -212,12 +212,14 @@
 
         startTimer: function() {
             var self = this;
+            if ( !this.options.auto ) { return; }
             this.timer = setInterval(function() {
                 self.next();
             }, this.options.interval );
         },
 
         stopTimer:  function() {
+            if ( !this.options.auto ) { return; }
             clearInterval( this.timer );
         },
 
