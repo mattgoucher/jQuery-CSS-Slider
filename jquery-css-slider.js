@@ -29,7 +29,8 @@
             oldClass:             'css-old',
             disabledClass:        'css-disabled',
             navigationClass:      'css-slider-navigation',
-            navigationItemClass:  'css-slider-navigation-item'
+            navigationItemClass:  'css-slider-navigation-item',
+            onTransition:         function() {}
         },
 
         _create: function() {
